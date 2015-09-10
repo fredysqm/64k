@@ -15,5 +15,8 @@ class slink_crear_view(CreateView):
 
 class slink_ver_view(DetailView):
     model = slink
-    queryset = slink.objects.all(clave=self.kwargs['slug'])
     template_name = 'slink/ver.html'
+
+class slink_redirect_view(DetailView):
+    model = slink
+    template_name = 'slink/redirect.html'

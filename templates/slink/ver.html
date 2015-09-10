@@ -4,7 +4,10 @@
 {% block content %}
 <div class="col-md-2"></div>
 <div class="col-md-8">
-
+<p>Url largo: {{ object.url }}</p>
+<p>Url corto: {{ object }}</p>
+<p></p>
+<p><a href="{% url 'slink_crear_url' %}" class="navbar-brand">Cortar otro URL</a></p>
 <div/>
 <div class="col-md-2"></div>
 {% endblock %}
