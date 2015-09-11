@@ -11,7 +11,7 @@ class slink(models.Model):
     url = models.URLField(unique=True)
     clicks = models.PositiveIntegerField(default=0)
     creado = models.DateTimeField(auto_now_add=True)
-    modificado = models.DateTimeField(auto_now=True)
+    acceso = models.DateTimeField(auto_now=True)
 
     def gen_clave(self):
         obj = opciones.objects.get(pk='RND_NEXT')
