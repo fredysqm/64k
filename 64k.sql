@@ -47,12 +47,17 @@ DROP TABLE IF EXISTS `app_slink`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `app_slink` (
-  `clave` varchar(16) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `id` int(10) unsigned NOT NULL,
+  `slug` varchar(16) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `url` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `fecha` datetime(6) NOT NULL,
   `clicks` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`clave`),
-  UNIQUE KEY `url` (`url`)
+  `creado` datetime(6) NOT NULL,
+  `modificado` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `url` (`url`),
+  UNIQUE KEY `app_slink_id_b3a2c6ee0a52de_uniq` (`id`),
+  UNIQUE KEY `app_slink_slug_723b562623637974_uniq` (`slug`),
+  KEY `app_slink_2dbcba41` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -62,7 +67,7 @@ CREATE TABLE `app_slink` (
 
 LOCK TABLES `app_slink` WRITE;
 /*!40000 ALTER TABLE `app_slink` DISABLE KEYS */;
-INSERT INTO `app_slink` VALUES ('0UNY','https://www.google.com.pe/search?num=100&espv=2&biw=1317&bih=681&q=django+migrations+create+primary+key&oq=django+migrations+create+primary+key&gs_l=serp.3..30i10.2160.3373.0.3492.7.6.0.0.0.0.319.552.','2015-09-11 08:40:02.055562',0),('9yyKaW','http://stackoverflow.com/questions/28876973/django-migration-making-a-row-not-primary-key-getting-programmingerror-multi','2015-09-11 08:40:12.504104',0),('YI9zO8','http://stackoverflow.com/questions/2055784/what-is-the-best-approach-to-change-primary-keys-in-an-existing-django-app#comment36166774_2056129','2015-09-11 08:40:20.381817',0);
+INSERT INTO `app_slink` VALUES (1,'0UNY','https://www.google.com.pe/search?num=100&espv=2&biw=1317&bih=681&q=django+migrations+create+primary+key&oq=django+migrations+create+primary+key&gs_l=serp.3..30i10.2160.3373.0.3492.7.6.0.0.0.0.319.552.',0,'2015-09-11 11:39:33.126366','2015-09-11 11:39:33.126366'),(2,'9yyKaW','http://stackoverflow.com/questions/28876973/django-migration-making-a-row-not-primary-key-getting-programmingerror-multi',0,'2015-09-11 11:39:33.133328','2015-09-11 11:39:33.133328'),(3,'YI9zO8','http://stackoverflow.com/questions/2055784/what-is-the-best-approach-to-change-primary-keys-in-an-existing-django-app#comment36166774_2056129',0,'2015-09-11 11:39:33.139701','2015-09-11 11:39:33.139701');
 /*!40000 ALTER TABLE `app_slink` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,7 +313,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -317,7 +322,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2015-09-11 08:38:49.867565'),(2,'auth','0001_initial','2015-09-11 08:38:56.276701'),(3,'admin','0001_initial','2015-09-11 08:38:58.033722'),(4,'app','0001_initial','2015-09-11 08:38:58.794694'),(5,'contenttypes','0002_remove_content_type_name','2015-09-11 08:39:00.204042'),(6,'auth','0002_alter_permission_name_max_length','2015-09-11 08:39:01.178040'),(7,'auth','0003_alter_user_email_max_length','2015-09-11 08:39:02.004936'),(8,'auth','0004_alter_user_username_opts','2015-09-11 08:39:02.163190'),(9,'auth','0005_alter_user_last_login_null','2015-09-11 08:39:02.737728'),(10,'auth','0006_require_contenttypes_0002','2015-09-11 08:39:02.792887'),(11,'sessions','0001_initial','2015-09-11 08:39:03.361012');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2015-09-11 08:38:49.867565'),(2,'auth','0001_initial','2015-09-11 08:38:56.276701'),(3,'admin','0001_initial','2015-09-11 08:38:58.033722'),(4,'app','0001_initial','2015-09-11 08:38:58.794694'),(5,'contenttypes','0002_remove_content_type_name','2015-09-11 08:39:00.204042'),(6,'auth','0002_alter_permission_name_max_length','2015-09-11 08:39:01.178040'),(7,'auth','0003_alter_user_email_max_length','2015-09-11 08:39:02.004936'),(8,'auth','0004_alter_user_username_opts','2015-09-11 08:39:02.163190'),(9,'auth','0005_alter_user_last_login_null','2015-09-11 08:39:02.737728'),(10,'auth','0006_require_contenttypes_0002','2015-09-11 08:39:02.792887'),(11,'sessions','0001_initial','2015-09-11 08:39:03.361012'),(12,'app','0002_auto_20150911_1111','2015-09-11 11:39:33.192641'),(13,'app','0003_auto_20150911_1131','2015-09-11 11:39:37.870029'),(14,'app','0004_auto_20150911_1135','2015-09-11 11:39:38.194113');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -355,4 +360,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-11 11:05:42
+-- Dump completed on 2015-09-11 11:43:45
