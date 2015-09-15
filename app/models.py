@@ -31,11 +31,11 @@ class slink(models.Model):
         return out
 
     def save(self):
-        self.clave = self.gen_clave()
+        self.slug = self.gen_clave()
         super(slink, self).save()
 
     def __str__(self):
-        return 'http://64k.in/%s/' % (self.clave)
+        return 'http://64k.in/%s/' % (self.slug)
 
 
 class opciones(models.Model):
