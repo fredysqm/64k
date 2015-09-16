@@ -2,7 +2,7 @@ from django.contrib import admin
 from app.models import slink, opcion
 
 class slink_admin(admin.ModelAdmin):
-    list_display = ('id', 'slug', 'url', 'clicks','acceso')
+    list_display = ('id', 'slug', 'url', 'clicks','creado','acceso')
     search_fiels = ('id', 'slug',)
     ordering = ['-id']
 
