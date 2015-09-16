@@ -28,5 +28,10 @@ class Migration(migrations.Migration):
             name='clave',
             field=models.SlugField(max_length=16, serialize=False, primary_key=True),
         ),
+        migrations.AlterField(
+            model_name='slink',
+            name='fecha',
+            field=models.DateTimeField(auto_now=False),
+        ),
         migrations.RunPython(data_migrations),
     ]
