@@ -6,7 +6,7 @@ RND_C = 1
 RND_M = 4294967296
 
 class slink(models.Model):
-    slug = models.SlugField(max_length=16, unique=True)
+    slug = models.CharField(max_length=16, unique=True)
     url = models.URLField(unique=True)
     clicks = models.PositiveIntegerField(default=0)
     creado = models.DateTimeField(auto_now_add=True)
