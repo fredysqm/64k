@@ -13,12 +13,12 @@ class slink(models.Model):
     acceso = models.DateTimeField(auto_now=True)
 
     def gen_clave(self):
-        obj = opciones.objects.get(pk='RND_NEXT')
+        obj = opcion.objects.get(pk='RND_NEXT')
         n = int(obj.valor)
         obj.valor = ( (RND_A * n) + RND_C ) % RND_M
         obj.save()
 
-        obj = opciones.objects.get(pk='RND_COUNT')
+        obj = opcion.objects.get(pk='RND_COUNT')
         obj.valor = int(obj.valor)+1
         obj.save()
 
@@ -37,9 +37,12 @@ class slink(models.Model):
         return 'http://64k.in/%s/' % (self.slug)
 
 
-class opciones(models.Model):
+class opcion(models.Model):
     clave = models.CharField(max_length=20, primary_key=True)
     valor = models.CharField(max_length=20)
 
     def __str__(self):
         return '%s: %s' % (self.clave, self.valor)
+
+    class Meta:
+        verbose_name_plural = 'opciones'
