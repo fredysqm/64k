@@ -36,7 +36,7 @@
                                 </span>
                                 <input class="form-control" readonly="true" value="{{ object }}" id="id_slink" />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-copy"></span> Copiar</button>
+                                    <button class="btn btn-primary" id="slink_copy" data-clipboard-text="{{ object }}" type="button"><span class="glyphicon glyphicon-copy"></span> Copiar</button>
                                 </span>
                             </div>
                         </div>
@@ -54,4 +54,13 @@
 
 </div>
 <div class="col-md-2"></div>
+{% endblock %}
+{% block js %}
+<script>
+    var client = new ZeroClipboard($("#slink_copy"));
+
+    $( "#slink_copy" ).click(function() {
+        $('#id_slink').select()
+    });
+</script>
 {% endblock %}
