@@ -1,13 +1,57 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% block title %}URL cortada{% endblock %}
+{% block title %}Ver URL{% endblock %}
+{% block menu %}
+<ul class="nav navbar-nav">
+    <li><a href="{% url 'slink_crear_url' %}">Cortar URL</a></li>
+    <li class="active"><a href="{{ object }}">Ver URL</a></li>
+</ul>
+{% endblock %}
 {% block content %}
 <div class="col-md-2"></div>
 <div class="col-md-8">
-<p>Url largo: {{ object.url }}</p>
-<p>Url corto: {{ object }}</p>
-<p></p>
-<p><a href="{% url 'slink_crear_url' %}" class="navbar-brand">Cortar otro URL</a></p>
-<div/>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">¡URL Cortada con éxito!</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="id_url" class="control-label col-md-2 requiredField">
+                                URL Largo
+                        </label>
+                        <div class="controls col-md-10">
+                            <input class="form-control" readonly="true" value="{{ object.url }}" id="id_url" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_slink" class="control-label col-md-2 requiredField">
+                                URL Corto
+                        </label>
+                        <div class="controls col-md-10">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-link"></span>
+                                </span>
+                                <input class="form-control" readonly="true" value="{{ object }}" id="id_slink" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-copy"></span> Copiar</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="text-right" class="form-group">
+        <div class="controls col-md-12 ">
+            <a class="btn btn-primary" href="{% url 'slink_crear_url' %}"><span class="glyphicon glyphicon-scissors"></span> Cortar otro URL</a>
+        </div>
+    </div>
+
+</div>
 <div class="col-md-2"></div>
 {% endblock %}
