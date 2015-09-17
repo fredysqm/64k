@@ -20,3 +20,10 @@ class slink_ver_view(DetailView):
 class slink_redirect_view(DetailView):
     model = slink
     template_name = 'slink/redirect.html'
+
+    def get(self, request, **kwargs):
+        self.object = self.get_object()
+        self.object.clicks += 1
+        self.object.save()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)

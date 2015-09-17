@@ -30,7 +30,8 @@ class slink(models.Model):
         return out
 
     def save(self):
-        self.slug = self.gen_clave()
+        if self.pk is None:
+            self.slug = self.gen_clave()
         super(slink, self).save()
 
     def __str__(self):
