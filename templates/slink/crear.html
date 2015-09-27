@@ -20,3 +20,25 @@
 </div>
 <div class="col-md-2"></div>
 {% endblock %}
+{% block js %}
+<script>
+    $(document).ready(function() {
+        $('#id_url').focus()
+
+        if ($('#id_use_custom_slug').is(':checked')) {
+            $('#div_id_custom_slug').show()
+        } else {
+            $('#div_id_custom_slug').hide()
+        }
+    });
+
+    $('#id_use_custom_slug').click(function() {
+        if ($('#id_use_custom_slug').is(':checked')) {
+            $('#div_id_custom_slug').show()
+            $('#id_custom_slug').focus()
+        } else {
+            $('#div_id_custom_slug').hide()
+        }
+    });
+</script>
+{% endblock %}
