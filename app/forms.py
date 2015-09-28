@@ -33,6 +33,16 @@ class slink_crear_form(forms.ModelForm):
         ),
     )
 
+    def clean_url(self):
+        try:
+            obj_slink = slink.objects.get(url=self.cleaned_data['url'])
+            self.cleaned_data['exist_url'] = True
+            self.cleaned_data['obj_slink'] = obj_slink
+        except:
+            self.cleaned_data['exist_url'] = False
+
+        return self.cleaned_data['url']
+
     def clean_custom_slug(self):
         custom_slug = defaultfilters.slugify(self.cleaned_data['custom_slug'])
 
@@ -57,7 +67,10 @@ class slink_crear_form(forms.ModelForm):
         _slink = super(slink_crear_form, self).save(commit=False)
 
         if self.cleaned_data['custom_slug'] is None:
-            _slink.slug = utils.gen_slug()
+            if self.cleaned_data['exist_url']:
+                return self.cleaned_data['obj_slink']
+            else:
+                _slink.slug = utils.gen_slug()
         else:
             _slink.slug = self.cleaned_data['custom_slug']
 
