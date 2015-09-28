@@ -1,18 +1,14 @@
 from django.db import models
 
-RND_DIGITS62 = 'q8YWysIz4JwSA9K6fn31GhPrTojDaZRuvXQgHVt5bkUEFce2lNMC0xdpi7mOLB'
-RND_A = 69069
-RND_C = 1
-RND_M = 4294967296
 
-class slink(models.Model):
-    slug = models.CharField(max_length=16, unique=True)
-    url = models.URLField(verbose_name='URL Largo')
-    visitas = models.PositiveIntegerField(default=0)
-    creado = models.DateTimeField(auto_now_add=True)
-    acceso = models.DateTimeField(auto_now=True)
 
-    def gen_clave(self):
+class utils():
+    def gen_slug():
+        RND_DIGITS62 = 'q8YWysIz4JwSA9K6fn31GhPrTojDaZRuvXQgHVt5bkUEFce2lNMC0xdpi7mOLB'
+        RND_A = 69069
+        RND_C = 1
+        RND_M = 4294967296
+
         obj = opcion.objects.get(pk='RND_NEXT')
         n = int(obj.valor)
         obj.valor = ( (RND_A * n) + RND_C ) % RND_M
@@ -29,10 +25,13 @@ class slink(models.Model):
 
         return out
 
-    def save(self):
-        if self.slug is None:
-            self.slug = self.gen_clave()
-        super(slink, self).save()
+
+class slink(models.Model):
+    slug = models.CharField(max_length=16, unique=True)
+    url = models.URLField(verbose_name='URL Largo')
+    visitas = models.PositiveIntegerField(default=0)
+    creado = models.DateTimeField(auto_now_add=True)
+    acceso = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return 'http://64k.in/%s/' % (self.slug)
