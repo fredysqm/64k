@@ -39,6 +39,9 @@ class slink_crear_form(forms.ModelForm):
         if not self.cleaned_data['use_custom_slug']:
             return None
 
+        if custom_slug == '':
+            return None
+
         try:
             slink.objects.get(slug=custom_slug)
             exist_slug = True
