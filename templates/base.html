@@ -12,8 +12,9 @@
         <link rel="stylesheet" href="/static/css/bootstrap.css" type="text/css" charset="utf-8">
         <link rel="stylesheet" href="/static/css/base.css" type="text/css" charset="utf-8">
     {% endcompress %}
-
-    {% block css %}{% endblock %}
+    {% compress css %}
+        {% block css %}{% endblock %}
+    {% endcompress %}
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top" >
@@ -48,6 +49,8 @@
         <script src="/static/js/ZeroClipboard.js" type="text/javascript" charset="utf-8"></script>
         <script src="/static/js/jquery.js" type="text/javascript" charset="utf-8"></script>
         <script src="/static/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    {% endcompress %}
+    {% compress js %}
         {% block js %}{% endblock %}
     {% endcompress %}
 </body>
