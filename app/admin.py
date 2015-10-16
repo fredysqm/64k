@@ -1,8 +1,9 @@
 from django.contrib import admin
 from app.models import slink, opcion
+from django.contrib.humanize.templatetags.humanize import naturalday
 
 class slink_admin(admin.ModelAdmin):
-    list_display = ('id', 'slug', 'url', 'visitas','creado','acceso')
+    list_display = ('id', 'slug', 'url', 'visitas', 'creado','acceso')
     search_fiels = ('id', 'slug',)
     ordering = ['-id']
 

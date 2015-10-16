@@ -34,6 +34,9 @@ class slink_crear_form(forms.ModelForm):
     )
 
     def clean_url(self):
+        if '64k.in' in self.cleaned_data['url']:
+            raise forms.ValidationError('Url no es válida.')
+
         try:
             obj_slink = slink.objects.get(url=self.cleaned_data['url'])
             self.cleaned_data['exist_url'] = True
