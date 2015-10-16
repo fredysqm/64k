@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -11,19 +11,24 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='opciones',
+            name='opcion',
             fields=[
-                ('clave', models.CharField(primary_key=True, max_length=20, serialize=False)),
+                ('clave', models.CharField(primary_key=True, serialize=False, max_length=20)),
                 ('valor', models.CharField(max_length=20)),
             ],
+            options={
+                'verbose_name_plural': 'opciones',
+            },
         ),
         migrations.CreateModel(
             name='slink',
             fields=[
-                ('clave', models.CharField(primary_key=True, max_length=16, serialize=False)),
-                ('url', models.URLField(unique=True)),
-                ('fecha', models.DateTimeField(auto_now=True)),
-                ('clicks', models.PositiveIntegerField(default=0)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('slug', models.CharField(max_length=16, unique=True)),
+                ('url', models.URLField(verbose_name='URL Largo')),
+                ('visitas', models.PositiveIntegerField(default=0)),
+                ('creado', models.DateTimeField(auto_now_add=True)),
+                ('acceso', models.DateTimeField(auto_now=True)),
             ],
         ),
     ]
