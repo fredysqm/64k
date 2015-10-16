@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, FormView
+from django.views.generic import CreateView, DetailView, RedirectView
 
 from app.models import slink
 from app.forms import slink_crear_form
@@ -21,13 +21,13 @@ class slink_ver_view(DetailView):
     template_name = 'slink/ver.html'
 
 
-class slink_redirect_view(DetailView):
-    model = slink
-    template_name = 'slink/redirect.html'
+class slink_redirect_view(RedirectView):
+    permanent = True
 
     def get(self, request, **kwargs):
-        self.object = self.get_object()
-        self.object.visitas += 1
-        self.object.save()
-        context = self.get_context_data(object=self.object)
-        return self.render_to_response(context)
+        slug = self.kwargs.get('slug', None)
+        obj = slink.objects.get(slug=slug)
+        self.url = obj.url
+        obj.visitas += 1
+        obj.save()
+        return super(slink_redirect_view, self).get(request, **kwargs)
