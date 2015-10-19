@@ -1,25 +1,58 @@
-<!DOCTYPE html>
+{% load staticfiles %}{% load compress %}<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+    <title>Cortar URL - 64k.in</title>
+
+    {% compress css %}
+        <link rel="stylesheet" href="/static/css/bootstrap.css" type="text/css" charset="utf-8">
+    {% endcompress %}
 </head>
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="text-align: center;">
+                    <h3 id="count_all"><span>Espere: </span><span id="count"></span><span> seg.</span></h3>
+                    <ul id="link" style="display: none;" class="pager"><li><a href="{{ object.url }}"><big>¡QUITAR PUBLICIDAD!</big></a></li></ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div style="text-align: right;">
-        <a href="{{ object.url }}">¡¡SALTAR PUBLICIDAD!!</a>
+    <hr />
+
+    <div style="text-align: center;">
+        <script>var adParams = {s: 1000167731, w: 728, h: 90, c: 1, blank: false}; </script><script src="http://js.srcsmrtgs.com/js/ad.js"></script>
     </div>
 
     <div style="text-align: center;">
-        <script type="text/javascript">
-        var ad_idzone = "1712178",
-             ad_width = "728",
-             ad_height = "90";
-        </script>
-        <script type="text/javascript" src="https://ads.exoclick.com/ads.js"></script>
-        <noscript><a href="http://main.exoclick.com/img-click.php?idzone=1712178" target="_blank"><img src="https://syndication.exoclick.com/ads-iframe-display.php?idzone=1712178&output=img&type=728x90" width="728" height="90"></a></noscript>
+        <script>var adParams = {s: 1000167740, w: 600, h: 400, c: 4, type: 6, blank: false};</script><script src="http://js.srcsmrtgs.com/js/ad.js"></script>
     </div>
 
+    {% compress js %}
+        <script src="/static/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+    {% endcompress %}
+    {% compress js %}
+        <script type="text/javascript">
+            var i = 5;
+            var run_count = function() {
+                if (i == 0) {
+                    $('#count_all').hide();
+                    $('#link').show();
+                    clearInterval(interval);
+                }
+                $('#count').text(i);
+                i--;
+            }
+
+            $('#count').text(i);
+            var interval = setInterval(run_count, 1000);
+        </script>
+    {% endcompress %}
 </body>
 </html>
