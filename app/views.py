@@ -22,7 +22,7 @@ class slink_ver_view(DetailView):
 
 
 class slink_redirect_view(RedirectView):
-    permanent = True
+    permanent = False
 
     def get(self, request, **kwargs):
         slug = self.kwargs.get('slug', None)
