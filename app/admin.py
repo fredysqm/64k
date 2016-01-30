@@ -8,6 +8,7 @@ from app.models import slink, opcion
 class slink_admin(admin.ModelAdmin):
     list_display = ('id', 'slug', 'url', 'visitas', 'creado','acceso')
     search_fiels = ('id', 'slug',)
+    list_filter = ('estado',)
     ordering = ['-id']
 
 class opcion_admin(admin.ModelAdmin):

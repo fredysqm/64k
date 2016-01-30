@@ -1,5 +1,9 @@
 from django.db import models
 
+ESTADO_SLINK = (
+    ('A', 'Habilitado'),
+    ('D', 'Deshabilitado'),
+)
 
 
 class utils():
@@ -32,6 +36,7 @@ class slink(models.Model):
     visitas = models.PositiveIntegerField(default=0)
     creado = models.DateTimeField(auto_now_add=True)
     acceso = models.DateTimeField(auto_now=True)
+    estado = models.CharField(max_length=1, default='A', choices=ESTADO_SLINK)
 
     def __str__(self):
         return 'http://64k.in/%s/' % (self.slug)
