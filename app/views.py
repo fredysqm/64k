@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404
-
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.views.generic import CreateView, DetailView, RedirectView
+from django.views.generic import CreateView, DetailView, RedirectView, TemplateView
 
 from app.models import slink
 from app.forms import slink_crear_form
@@ -31,3 +30,11 @@ class slink_redirect_view(RedirectView):
         obj.visitas += 1
         obj.save()
         return super(slink_redirect_view, self).get(request, **kwargs)
+
+
+class error404(TemplateView):
+    template_name = '404.html'
+
+
+class error500(TemplateView):
+    template_name = '500.html'

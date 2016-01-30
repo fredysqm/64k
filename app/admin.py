@@ -1,6 +1,9 @@
 from django.contrib import admin
-from app.models import slink, opcion
 from django.contrib.humanize.templatetags.humanize import naturalday
+
+from app.models import slink, opcion
+
+
 
 class slink_admin(admin.ModelAdmin):
     list_display = ('id', 'slug', 'url', 'visitas', 'creado','acceso')
