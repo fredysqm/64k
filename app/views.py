@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, RedirectView
@@ -26,7 +26,7 @@ class slink_redirect_view(RedirectView):
 
     def get(self, request, **kwargs):
         slug = self.kwargs.get('slug', None)
-        obj = slink.objects.get(slug=slug)
+        obj = get_object_or_404(slink, slug=slug)
         self.url = obj.url
         obj.visitas += 1
         obj.save()
