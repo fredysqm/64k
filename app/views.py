@@ -28,9 +28,10 @@ class slink_redirect_view(RedirectView):
         slug = self.kwargs.get('slug', None)
         obj = get_object_or_404(slink, slug=slug)
         
-        if obj.estado == 'A':
+        if obj.estado == 'A' or obj.estado =='I':
             self.url = obj.url
             obj.visitas += 1
+            obj.estado = 'A'
             obj.save()
             return super(slink_redirect_view, self).get(request, **kwargs)
         else:

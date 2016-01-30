@@ -1,7 +1,8 @@
 from django.db import models
 
 ESTADO_SLINK = (
-    ('A', 'Habilitado'),
+    ('A', 'Activo'),
+    ('I', 'Inactivo'),
     ('D', 'Deshabilitado'),
 )
 
