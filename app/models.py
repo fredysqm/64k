@@ -42,7 +42,7 @@ class slink(models.Model):
     estado = models.CharField(max_length=1, default='A', choices=ESTADO_SLINK)
 
     def __str__(self):
-        return 'http://64k.in/%s/' % (self.slug)
+        return 'http://svr64.xyz/%s/' % (self.slug)
 
 
 class opcion(models.Model):
