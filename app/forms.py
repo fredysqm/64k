@@ -16,7 +16,7 @@ class slink_crear_form(forms.ModelForm):
         fields = ('url',)
 
     use_custom_slug = forms.BooleanField(label="Personalizar", required=False)
-    custom_slug = forms.CharField(label="http://64k.in/", max_length=16, required=False, validators=[validators.MaxLengthValidator(16)])
+    custom_slug = forms.CharField(label="http://svr64.xyz/", max_length=16, required=False, validators=[validators.MaxLengthValidator(16)])
 
     helper = FormHelper()
     helper.form_method = 'POST'
