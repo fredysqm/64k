@@ -1,4 +1,4 @@
-from app.models import utils, slink
+from app.models import Slink
 
 from django import forms
 from django.core import validators
@@ -12,7 +12,7 @@ from crispy_forms.bootstrap import FormActions
 
 class slink_crear_form(forms.ModelForm):
     class Meta:
-        model = slink
+        model = Slink
         fields = ('url',)
 
     use_custom_slug = forms.BooleanField(label="Personalizar", required=False)
@@ -73,7 +73,7 @@ class slink_crear_form(forms.ModelForm):
             if self.cleaned_data['exist_url']:
                 return self.cleaned_data['obj_slink']
             else:
-                _slink.slug = utils.gen_slug()
+                _slink.slug = 'custom'
         else:
             _slink.slug = self.cleaned_data['custom_slug']
 

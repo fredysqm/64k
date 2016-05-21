@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, RedirectView, TemplateView
 
-from app.models import slink
+from app.models import Slink
 from app.forms import slink_crear_form
 
 
@@ -17,7 +17,7 @@ class slink_crear_view(CreateView):
 
 
 class slink_ver_view(DetailView):
-    model = slink
+    model = Slink
     template_name = 'slink/ver.html'
 
 
@@ -26,12 +26,11 @@ class slink_redirect_view(RedirectView):
 
     def get(self, request, **kwargs):
         slug = self.kwargs.get('slug', None)
-        obj = get_object_or_404(slink, slug=slug)
-        
-        if obj.estado == 'A' or obj.estado =='I':
+        obj = get_object_or_404(Slink, slug=slug)
+
+        if obj.estado == 'A':
             self.url = obj.url
             obj.visitas += 1
-            obj.estado = 'A'
             obj.save()
             return super(slink_redirect_view, self).get(request, **kwargs)
         else:

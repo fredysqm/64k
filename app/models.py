@@ -1,39 +1,39 @@
 from django.db import models
+from django.conf import settings
 
 
 
 ESTADO_SLINK = (
     ('A', 'Activo'),
-    ('I', 'Inactivo'),
     ('D', 'Deshabilitado'),
 )
 
 
-class utils():
-    def gen_slug():
-        RND_DIGITS62 = 'q8YWysIz4JwSA9K6fn31GhPrTojDaZRuvXQgHVt5bkUEFce2lNMC0xdpi7mOLB'
-        RND_A = 69069
-        RND_C = 1
-        RND_M = 4294967296
-
-        obj = opcion.objects.get(pk='RND_NEXT')
-        n = int(obj.valor)
-        obj.valor = ( (RND_A * n) + RND_C ) % RND_M
-        obj.save()
-
-        obj = opcion.objects.get(pk='RND_COUNT')
-        obj.valor = int(obj.valor)+1
-        obj.save()
-
-        out = ''
-        while (n != 0):
-            out += RND_DIGITS62[n % 62]
-            n = n // 62
-
-        return out
+RND_A = getattr(settings, 'SLINK_RND_A')
+RND_C = getattr(settings, 'SLINK_RND_C')
+RND_M = getattr(settings, 'SLINK_RND_M')
+RND_DIGITS62 = getattr(settings, 'SLINK_RND_DIGITS62')
+SLINK_URL = getattr(settings, 'SLINK_URL')
 
 
-class slink(models.Model):
+def gen_slug():
+    obj = Opcion.objects.get(pk='RND_NEXT')
+    n = int(obj.valor)
+    obj.valor = ( (RND_A * n) + RND_C ) % RND_M
+    obj.save()
+
+    obj = Opcion.objects.get(pk='RND_COUNT')
+    obj.valor = int(obj.valor)+1
+    obj.save()
+
+    out = ''
+    while (n != 0):
+        out += RND_DIGITS62[n % 62]
+        n = n // 62
+    return out
+
+
+class Slink(models.Model):
     slug = models.CharField(max_length=16, unique=True)
     url = models.URLField(verbose_name='URL Largo')
     visitas = models.PositiveIntegerField(default=0)
@@ -41,12 +41,18 @@ class slink(models.Model):
     acceso = models.DateTimeField(auto_now=True)
     estado = models.CharField(max_length=1, default='A', choices=ESTADO_SLINK)
 
+    def save(self, *args, **kwargs):
+        if getattr(self, '_image_changed', True):
+            small=rescale_image(self.image,width=100,height=100)
+            self.image_small=SimpleUploadedFile(name,small_pic)
+        super(Slink, self).save(*args, **kwargs)
+
     def __str__(self):
-        return 'http://svr64.xyz/%s/' % (self.slug)
+        return SLINK_URL + ('%s/' % (self.slug))
 
 
-class opcion(models.Model):
-    clave = models.CharField(max_length=20, primary_key=True)
+class Opcion(models.Model):
+    clave = models.CharField(primary_key=True, max_length=20)
     valor = models.CharField(max_length=20)
 
     def __str__(self):
