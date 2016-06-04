@@ -1,19 +1,15 @@
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.views.generic import CreateView, DetailView, RedirectView, TemplateView
+from django.views.generic import DetailView, RedirectView, TemplateView
 
 from app.models import Slink
 from app.forms import slink_crear_form
 
 
 
-class slink_crear_view(CreateView):
-    form_class = slink_crear_form
+class slink_crear_view(TemplateView):
     template_name = 'slink/crear.html'
-
-    def get_success_url(self):
-        return reverse('slink_ver_url', args=(self.object.slug,))
 
 
 class slink_ver_view(DetailView):

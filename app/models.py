@@ -1,5 +1,8 @@
 from django.db import models
 from django.conf import settings
+from django.core import validators
+from django.template import defaultfilters
+from django.core.exceptions import ValidationError
 
 
 
@@ -8,12 +11,13 @@ ESTADO_SLINK = (
     ('D', 'Deshabilitado'),
 )
 
-
+SLINK_DOMAIN = getattr(settings, 'SLINK_DOMAIN')
+SLINK_URL = getattr(settings, 'SLINK_URL')
 RND_A = getattr(settings, 'SLINK_RND_A')
 RND_C = getattr(settings, 'SLINK_RND_C')
 RND_M = getattr(settings, 'SLINK_RND_M')
 RND_DIGITS62 = getattr(settings, 'SLINK_RND_DIGITS62')
-SLINK_URL = getattr(settings, 'SLINK_URL')
+
 
 
 def gen_slug():
@@ -32,19 +36,22 @@ def gen_slug():
         n = n // 62
     return out
 
+def clean_url(value):
+    if SLINK_DOMAIN in value:
+        raise ValidationError('Url no es válida.')
 
 class Slink(models.Model):
-    slug = models.CharField(max_length=16, unique=True)
-    url = models.URLField(verbose_name='URL Largo')
+    slug = models.CharField(max_length=16, unique=True, validators=[validators.MaxLengthValidator(16)])
+    url = models.URLField(unique=True, validators=[clean_url])
     visitas = models.PositiveIntegerField(default=0)
     creado = models.DateTimeField(auto_now_add=True)
     acceso = models.DateTimeField(auto_now=True)
     estado = models.CharField(max_length=1, default='A', choices=ESTADO_SLINK)
 
     def save(self, *args, **kwargs):
-        if getattr(self, '_image_changed', True):
-            small=rescale_image(self.image,width=100,height=100)
-            self.image_small=SimpleUploadedFile(name,small_pic)
+        self.slug = defaultfilters.slugify(self.slug)
+        if self.slug is '':
+            self.slug = gen_slug()
         super(Slink, self).save(*args, **kwargs)
 
     def __str__(self):
