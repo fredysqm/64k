@@ -6,6 +6,8 @@ from django.views.generic import DetailView, RedirectView, TemplateView
 from app.models import Slink
 from app.forms import slink_crear_form
 
+from rest_framework import viewsets
+from app.serializers import SlinkSerializer
 
 
 class slink_crear_view(TemplateView):
@@ -39,3 +41,9 @@ class error404(TemplateView):
 
 class error500(TemplateView):
     template_name = '500.html'
+
+
+
+class SlinkViewSet(viewsets.ModelViewSet):
+    queryset = Slink.objects.all()
+    serializer_class = SlinkSerializer
