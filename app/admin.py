@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.humanize.templatetags.humanize import naturalday
 
 from app.models import Slink, Opcion
 

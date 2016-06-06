@@ -13,7 +13,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'compressor',
     'app',
-    'crispy_forms',
+    'api',
     'rest_framework',
 )
 

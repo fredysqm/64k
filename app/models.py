@@ -41,7 +41,7 @@ def clean_url(value):
         raise ValidationError('Url no es válida.')
 
 class Slink(models.Model):
-    slug = models.CharField(max_length=16, unique=True, validators=[validators.MaxLengthValidator(16)], blank = True)
+    slug = models.CharField(max_length=16, unique=True, validators=[validators.MaxLengthValidator(16)], blank=True)
     url = models.URLField(unique=True, validators=[clean_url])
     visitas = models.PositiveIntegerField(default=0)
     creado = models.DateTimeField(auto_now_add=True)

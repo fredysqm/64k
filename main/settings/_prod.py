@@ -12,7 +12,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'compressor',
     'app',
-    'crispy_forms',
+    'api',
     'rest_framework',
 )
 
