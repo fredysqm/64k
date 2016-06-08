@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %}{% load staticfiles %}
 {% block title %}Cortar URL{% endblock %}
 {% block menu %}
 <ul class="nav navbar-nav">
@@ -15,36 +15,39 @@
         <div class="panel-body">
 
             <form class="form-horizontal" method="post" >
-                <div id="div_id_url" class="form-group">
-                    <label for="id_url" class="control-label col-md-2 requiredField">
-                        Url<span class="asteriskField">*</span>
+                <div id="div_url" class="form-group">
+                    <label for="url" class="control-label col-md-2 requiredField">
+                        URL Largo<span class="asteriskField">*</span>
                     </label>
                     <div class="controls col-md-10">
-                        <input class="urlinput form-control" id="id_url" maxlength="200" name="url" type="url" />
+                        <input class="urlinput form-control" id="url" maxlength="200" name="url" type="url" />
+                        <span id="error_url" class="help-block" style="display: none;"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="controls col-md-offset-2 col-md-10">
-                        <div id="div_id_use_custom_slug" class="checkbox">
-                            <label for="id_use_custom_slug" class="">
-                                <input class="checkboxinput" id="id_use_custom_slug" name="use_custom_slug" type="checkbox" />
+                        <div id="div_use_slug" class="checkbox">
+                            <label for="use_slug" class="">
+                                <input class="checkboxinput" id="use_slug" name="use_slug" type="checkbox" />
                                 Personalizar
                             </label>
                         </div>
                     </div>
                 </div>
-                <div id="div_id_custom_slug" class="form-group">
-                    <label for="id_custom_slug" class="control-label col-md-2">
+                <div id="div_slug" class="form-group" style="display: none;">
+                    <label for="slug" class="control-label col-md-2">
                         http://svr64.xyz/
                     </label>
                     <div class="controls col-md-10">
-                        <input class="textinput textInput form-control" id="id_custom_slug" maxlength="16" name="custom_slug" type="text" />
+                        <input class="textinput textInput form-control" id="slug" maxlength="16" name="slug" type="text" />
+                        <span id="error_slug" class="help-block" style="display: none;"></span>
                     </div>
                 </div>
                 <div  class="text-right" class="form-group">
                     <div class="aab controls col-md-2"></div>
                     <div class="controls col-md-10">
-                        <input type="submit" name="submit" value="Cortar URL" class="btn btn-primary" id="submit-id-submit" />
+                        <img id="imgLoading" style="display: none;" src="{% static 'img/loading.gif' %}" >
+                        <button type="button" id="btnCortar" data-loading-text="Cargando..." class="btn btn-primary" autocomplete="off">Cortar URL</button>
                     </div>
                 </div>
             </form>
@@ -57,7 +60,56 @@
 {% block js %}
 <script>
     $(document).ready(function() {
-        //doit
+        $('#url').focus()
     });
+
+    $('#btnCortar').click(function() {
+        $('#imgLoading').show();
+        $.ajax({
+            context: $(this),
+            url: "/api/slink/",
+            type: "POST",
+            data: getFormData(),
+            success: function(data, textStatus, jqXHR) {
+                window.location.href = '/ver/' + data.slug;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                if(jqXHR.responseJSON.url)
+                    showFieldError('url', jqXHR.responseJSON.url)
+
+                $('#imgLoading').hide();
+            }
+        });
+    });
+
+    $('#use_slug').click(function() {
+        if ($('#use_slug').is(':checked')) {
+            $('#div_slug').show()
+            $('#slug').focus()
+        } else {
+            $('#div_slug').hide()
+        }
+    });
+
+    function getFormData() {
+        if ($('#use_slug').is(':checked')) {
+            return {url: $('#url').val(), slug: $('#slug').val()};
+        } else {
+            return {url: $('#url').val(), slug: ''};
+        }
+    }
+
+    function clearFieldError(id) {
+        $('#div_' + id).removeClass('has-error');
+        $('#error_' + id).hide();
+        $('#error_' + id).text('');
+    }
+
+    function showFieldError(id, mensaje) {
+        $('#div_' + id).addClass('has-error');
+        $('#error_' + id).html('<strong>' + mensaje + '</strong>');
+        $('#error_' + id).show();
+    }
 </script>
 {% endblock %}
