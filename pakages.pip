@@ -1,6 +1,5 @@
 Django
 mysqlclient
-django-crispy-forms
 django_compressor
 djangorestframework
 django-debug-toolbar
