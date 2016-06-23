@@ -12,6 +12,12 @@ from api.serializers import SlinkSerializer
 
 class SlinkAPIView(APIView):
 
+    def get_object(self, url):
+        try:
+            return Slink.objects.get(url=url)
+        except Slink.DoesNotExist:
+            raise Http404
+
     def post(self, request, format=None):
         serializer = SlinkSerializer(data=request.data)
         if serializer.is_valid():
@@ -19,6 +25,11 @@ class SlinkAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request):
+        slug = self.get_object(request.GET['url'])
+        serializer = SlinkSerializer(slug)
+        return Response(serializer.data)
 
 
 class SlinkDetailAPIView(APIView):

@@ -65,22 +65,46 @@
 
     $('#btnCortar').click(function() {
         $('#imgLoading').show();
+
+
         $.ajax({
             context: $(this),
             url: "/api/slink/",
-            type: "POST",
+            type: "GET",
             data: getFormData(),
             success: function(data, textStatus, jqXHR) {
                 window.location.href = '/ver/' + data.slug;
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
-                if(jqXHR.responseJSON.url)
-                    showFieldError('url', jqXHR.responseJSON.url)
+                $.ajax({
+                    context: $(this),
+                    url: "/api/slink/",
+                    type: "POST",
+                    data: getFormData(),
+                    success: function(data, textStatus, jqXHR) {
+                        window.location.href = '/ver/' + data.slug;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
 
-                $('#imgLoading').hide();
+                        if(jqXHR.responseJSON.url)
+                            showFieldError('url', jqXHR.responseJSON.url)
+                        else
+                            clearFieldError('url')
+
+                        if(jqXHR.responseJSON.slug)
+                            showFieldError('slug', jqXHR.responseJSON.slug)
+                        else
+                            clearFieldError('slug')
+
+                        $('#imgLoading').hide();
+                    }
+                });
+
             }
         });
+
+
     });
 
     $('#use_slug').click(function() {

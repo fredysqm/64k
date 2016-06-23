@@ -22,6 +22,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='slink',
             name='url',
-            field=models.URLField(unique=True, validators=[app.models.clean_url]),
+            field=models.URLField(unique=True,),
         ),
     ]

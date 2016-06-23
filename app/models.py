@@ -1,8 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.core import validators
 from django.template import defaultfilters
-from django.core.exceptions import ValidationError
 
 
 
@@ -10,14 +8,11 @@ ESTADO_SLINK = (
     ('A', 'Activo'),
     ('D', 'Deshabilitado'),
 )
-
-SLINK_DOMAIN = getattr(settings, 'SLINK_DOMAIN')
 SLINK_URL = getattr(settings, 'SLINK_URL')
 RND_A = getattr(settings, 'SLINK_RND_A')
 RND_C = getattr(settings, 'SLINK_RND_C')
 RND_M = getattr(settings, 'SLINK_RND_M')
 RND_DIGITS62 = getattr(settings, 'SLINK_RND_DIGITS62')
-
 
 
 def gen_slug():
@@ -36,13 +31,10 @@ def gen_slug():
         n = n // 62
     return out
 
-def clean_url(value):
-    if SLINK_DOMAIN in value:
-        raise ValidationError('Url no es válida.')
 
 class Slink(models.Model):
-    slug = models.CharField(max_length=16, unique=True, validators=[validators.MaxLengthValidator(16)], blank=True)
-    url = models.URLField(unique=True, validators=[clean_url])
+    slug = models.CharField(max_length=16, unique=True, blank=True)
+    url = models.URLField(unique=True)
     visitas = models.PositiveIntegerField(default=0)
     creado = models.DateTimeField(auto_now_add=True)
     acceso = models.DateTimeField(auto_now=True)
