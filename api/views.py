@@ -3,6 +3,8 @@ from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import viewsets
+from rest_framework import mixins
 
 from app.models import Slink
 
@@ -44,3 +46,23 @@ class SlinkDetailAPIView(APIView):
         slug = self.get_object(slug)
         serializer = SlinkSerializer(slug)
         return Response(serializer.data)
+
+
+class SlinkViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+
+    serializer_class = SlinkSerializer
+    queryset = Slink.objects.all()
+    lookup_field = 'slug'
+
+
+# class SlinkListViewSet(viewsets.ViewSet):
+# 
+#     def list(self, request):
+#         query = self.request.query_params
+#         queryset = Slink.objects.all()
+#         if 'url' in query.keys():
+#             queryset = queryset.filter(url=query.get('url'))
+#         else:
+#             queryset = None
+#         serializer = SlinkSerializer(queryset, many=True)
+#         return Response(serializer.data)

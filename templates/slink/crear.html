@@ -60,7 +60,7 @@
 {% block js %}
 <script>
     $(document).ready(function() {
-        $('#url').focus()
+        $('#url').focus();
     });
 
     $('#btnCortar').click(function() {
@@ -88,14 +88,14 @@
                     error: function (jqXHR, textStatus, errorThrown) {
 
                         if(jqXHR.responseJSON.url)
-                            showFieldError('url', jqXHR.responseJSON.url)
+                            showFieldError('url', jqXHR.responseJSON.url);
                         else
-                            clearFieldError('url')
+                            clearFieldError('url');
 
                         if(jqXHR.responseJSON.slug)
-                            showFieldError('slug', jqXHR.responseJSON.slug)
+                            showFieldError('slug', jqXHR.responseJSON.slug);
                         else
-                            clearFieldError('slug')
+                            clearFieldError('slug');
 
                         $('#imgLoading').hide();
                     }
@@ -109,10 +109,10 @@
 
     $('#use_slug').click(function() {
         if ($('#use_slug').is(':checked')) {
-            $('#div_slug').show()
-            $('#slug').focus()
+            $('#div_slug').show();
+            $('#slug').focus();
         } else {
-            $('#div_slug').hide()
+            $('#div_slug').hide();
         }
     });
 
