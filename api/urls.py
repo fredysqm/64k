@@ -8,7 +8,7 @@ from api.views import *
 
 router = DefaultRouter()
 router.register(r'slink2', SlinkViewSet)
-#router.register(r'slink2-search', SlinkListViewSet)
+router.register(r'slink2-search', SlinkListViewSet)
 
 
 urlpatterns = [

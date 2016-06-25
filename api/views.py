@@ -48,21 +48,23 @@ class SlinkDetailAPIView(APIView):
         return Response(serializer.data)
 
 
-class SlinkViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+class SlinkViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 
     serializer_class = SlinkSerializer
     queryset = Slink.objects.all()
     lookup_field = 'slug'
+    
 
-
-# class SlinkListViewSet(viewsets.ViewSet):
-# 
-#     def list(self, request):
-#         query = self.request.query_params
-#         queryset = Slink.objects.all()
-#         if 'url' in query.keys():
-#             queryset = queryset.filter(url=query.get('url'))
-#         else:
-#             queryset = None
-#         serializer = SlinkSerializer(queryset, many=True)
-#         return Response(serializer.data)
+class SlinkListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    
+    serializer_class = SlinkSerializer
+    queryset = Slink.objects.all()
+    
+    def get_queryset(self):
+        query = self.request.query_params
+        queryset = self.queryset
+        if 'url' in query.keys():
+            queryset = queryset.filter(url=query.get('url'))
+        else:
+            raise Http404
+        return queryset
