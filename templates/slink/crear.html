@@ -64,28 +64,26 @@
     });
 
     $('#btnCortar').click(function() {
+        
         $('#imgLoading').show();
-
-
         $.ajax({
             context: $(this),
             url: "/api/slink/",
             type: "GET",
             data: getFormData(),
-            success: function(data, textStatus, jqXHR) {
+            success: function(data) {
                 window.location.href = '/ver/' + data.slug;
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function () {
 
                 $.ajax({
-                    context: $(this),
                     url: "/api/slink/",
                     type: "POST",
                     data: getFormData(),
-                    success: function(data, textStatus, jqXHR) {
+                    success: function(data) {
                         window.location.href = '/ver/' + data.slug;
                     },
-                    error: function (jqXHR, textStatus, errorThrown) {
+                    error: function (jqXHR) {
 
                         if(jqXHR.responseJSON.url)
                             showFieldError('url', jqXHR.responseJSON.url);
@@ -97,8 +95,12 @@
                         else
                             clearFieldError('slug');
 
-                        $('#imgLoading').hide();
-                    }
+                        
+                    },
+                    complete:function () {
+                                $('#imgLoading').hide();
+                                $('#btnCortar').button('reset');
+                    },
                 });
 
             }

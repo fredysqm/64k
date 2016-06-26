@@ -5,8 +5,8 @@
                 settings.context.button('loading');
             }
         },
-        complete:function () {
+        /*complete:function () {
             this.button('reset');
-        }
+        }*/
     });
 })(jQuery);

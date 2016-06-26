@@ -7,12 +7,9 @@ from api.views import *
 
 
 router = DefaultRouter()
-router.register(r'slink2', SlinkViewSet)
-router.register(r'slink2-search', SlinkListViewSet)
+router.register(r'slink', SlinkViewSet)
 
 
 urlpatterns = [
-    url(r'^slink/$', SlinkAPIView.as_view()),
-    url(r'^slink/(?P<slug>[-_\w]+)/$', SlinkDetailAPIView.as_view()),
     url(r'^', include(router.urls)),
 ]
