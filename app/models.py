@@ -49,9 +49,10 @@ class Slink(models.Model):
     estado = models.CharField(max_length=1, default='A', choices=ESTADO_SLINK)
 
     def save(self, *args, **kwargs):
-        self.slug = defaultfilters.slugify(self.slug)
-        if not self.slug:
-            self.slug = gen_slug()
+        if self.pk is None:
+            self.slug = defaultfilters.slugify(self.slug)
+            if not self.slug:
+                self.slug = gen_slug()
         super(Slink, self).save(*args, **kwargs)
 
     def __str__(self):
