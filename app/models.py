@@ -56,7 +56,7 @@ class Slink(models.Model):
         super(Slink, self).save(*args, **kwargs)
 
     def __str__(self):
-        return SLINK_URL + ('%s/' % (self.slug))
+        return SLINK_DOMAIN + ('/%s/' % (self.slug))
 
 
 class Opcion(models.Model):

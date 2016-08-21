@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
-    <title>{% block title %}{% endblock %} - svr64.xyz</title>
+    <title>{% block title %}{% endblock %} - Svr64</title>
 
     {% compress css %}
         <link rel="stylesheet" href="/static/css/bootstrap.css" type="text/css" charset="utf-8">
@@ -17,10 +17,12 @@
     {% endcompress %}
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" >
+    <div class="navbar navbar-default navbar-fixed-top" >
         <div class="container">
             <div class="navbar-header">
-                <a href="{% url 'slink_crear_url' %}" class="navbar-brand"><span class="glyphicon glyphicon-scissors"></span> <strong>svr64.xyz</strong></a>
+                <a href="{% url 'slink_crear_url' %}" class="navbar-brand">
+                    <img src="{% static 'img/logo.png' %}"></img><strong>Svr64</strong>
+                </a>
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
