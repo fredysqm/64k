@@ -19,7 +19,7 @@
                 <fieldset>
                     <div id="div_url" class="form-group">
                         <label for="url" class="control-label col-md-2 requiredField">
-                            URL Largo<span class="asteriskField">*</span>
+                            URL Larga<span class="asteriskField">*</span>
                         </label>
                         <div class="controls col-md-10">
                             <div class="input-group">
@@ -58,8 +58,7 @@
                     <div class="text-right" class="form-group">
                         <div class="aab controls col-md-2"></div>
                         <div class="controls col-md-10">
-                            <img id="imgLoading" style="display: none;" src="{% static 'img/loading.gif' %}" >
-                            <button type="button" id="btnCortar" data-loading-text="Cargando..." class="btn btn-success" autocomplete="off"><span class="glyphicon glyphicon-scissors"></span> Cortar URL</button>
+                            <button type="button" id="btnCortar" data-loading-text="<span class='glyphicon glyphicon-repeat fast-right-spinner'></span> Cortar URL" class="btn btn-success" autocomplete="off"><span class="glyphicon glyphicon-scissors"></span> Cortar URL</button>
                         </div>
                     </div>
                 </fieldset>
@@ -76,10 +75,9 @@
     });
 
     $('#btnCortar').click(function() {
-        
-        $('#imgLoading').show();
+        $('#btnCortar').button('loading');
         $.ajax({
-            context: $(this),
+            async: true,
             url: "/api/slink/",
             type: "GET",
             data: getFormData(),
@@ -89,6 +87,7 @@
             error: function () {
 
                 $.ajax({
+                    async: true,
                     url: "/api/slink/",
                     type: "POST",
                     data: getFormData(),
@@ -107,17 +106,14 @@
                         else
                             clearFieldError('slug');
 
-                        
+                        $('#btnCortar').button('reset');
                     },
                     complete:function () {
-                                $('#imgLoading').hide();
-                                $('#btnCortar').button('reset');
+                        //$('#btnCortar').button('reset');
                     },
                 });
-
             }
         });
-
 
     });
 
