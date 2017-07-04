@@ -70,11 +70,17 @@
 {% endblock %}
 {% block js %}
 <script>
+
+    $(document).ajaxStop($.unblockUI);
+
     $(document).ready(function() {
         $('#url').focus();
     });
 
     $('#btnCortar').click(function() {
+
+        $.blockUI({ message: '<img src="/static/img/loader.gif" /><h5>Procesando...</h5>' });
+
         $('#btnCortar').button('loading');
         $.ajax({
             async: true,
