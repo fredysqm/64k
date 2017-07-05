@@ -16,7 +16,7 @@ slink_deshabilitar_action.short_description = "Deshabilitar slink(s) seleccionad
 class SlinkAdmin(admin.ModelAdmin):
     list_display = ('id', 'slug', 'url', 'visitas', 'creado','acceso')
     search_fiels = ('id', 'slug',)
-    list_filter = ('estado',)
+    list_filter = ('creado','acceso', 'estado')
     ordering = ['-id']
     actions = (slink_activar_action, slink_deshabilitar_action,)
 

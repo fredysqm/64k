@@ -68,6 +68,13 @@
 </div>
 <div class="col-md-2"></div>
 {% endblock %}
+
+{% block modals %}
+<div id="mdl_wait_msg">
+    <h5><img src="{% static 'img/loader.gif' %}" /> Procesando...</h5>
+</div>
+{% endblock %}
+
 {% block js %}
 <script>
 
@@ -79,7 +86,7 @@
 
     $('#btnCortar').click(function() {
 
-        $.blockUI({ message: '<img src="/static/img/loader.gif" /><h5>Procesando...</h5>' });
+        $.blockUI({ message: $('#mdl_wait_msg') });
 
         $('#btnCortar').button('loading');
         $.ajax({
