@@ -37,6 +37,7 @@ Thumbs.db
 .project
 .pydevproject
 .komodotools
+.vscode
 
 # project
 */settings/local.py

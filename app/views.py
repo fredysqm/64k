@@ -2,19 +2,15 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic import DetailView, RedirectView, TemplateView
-
 from app.models import Slink
-
 
 
 class slink_crear_view(TemplateView):
     template_name = 'slink/crear.html'
 
-
 class slink_ver_view(DetailView):
     model = Slink
     template_name = 'slink/ver.html'
-
 
 class slink_redirect_view(RedirectView):
     permanent = False
@@ -31,10 +27,8 @@ class slink_redirect_view(RedirectView):
         else:
             raise Http404
 
-
 class error404(TemplateView):
     template_name = '404.html'
-
 
 class error500(TemplateView):
     template_name = '500.html'

@@ -1,19 +1,14 @@
 from django.http import Http404
-
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework import mixins
-
 from app.models import Slink
-
 from api.serializers import SlinkSerializer
 
 
-
 class SlinkViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
-
     serializer_class = SlinkSerializer
     queryset = Slink.objects.all()
     lookup_field = 'slug'

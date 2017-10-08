@@ -1,7 +1,5 @@
 from django.contrib import admin
-
 from app.models import Slink, Opcion
-
 
 
 def slink_activar_action(modeladmin, request, queryset):

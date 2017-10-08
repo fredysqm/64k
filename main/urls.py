@@ -3,7 +3,6 @@ from django.contrib import admin
 from app.views import error404, error500
 
 
-
 urlpatterns = [
     url(r'^sp10ndmnumbr30n/', include(admin.site.urls)),
     url(r'^api/', include('api.urls')),
