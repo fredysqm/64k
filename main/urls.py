@@ -8,7 +8,7 @@ handler404 = error404.as_view()
 handler500 = error500.as_view()
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^adminplus/', admin.site.urls),
     url(r'^api/', include('api.urls')),
     url(r'^', include('app.urls')),
 ]
