@@ -1,32 +1,30 @@
 {% extends 'base.html' %}{% load staticfiles %}
 {% block title %}Cortar URL{% endblock %}
 {% block menu %}
-<ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'slink_crear_url' %}">Cortar URL</a>
-    </li>
+<ul class="nav navbar-nav">
+    <li class="active"><a href="{% url 'slink_crear_url' %}">Cortar URL</a></li>
 </ul>
 {% endblock %}
 {% block content %}
-<div class="col"></div>
-<div class="col-8">
+<div class="col-md-2"></div>
+<div class="col-md-8">
     <div class="alert alert-dismissible alert-info">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>¡Cortar URL!</strong>
     </div>
 
-    <div class="card">
-        <div class="card-body">
+    <div class="panel panel-default">
+        <div class="panel-body">
             <form class="form-horizontal" method="post" >
                 <fieldset>
                     <div id="div_url" class="form-group">
                         <label for="url" class="control-label col-md-2 requiredField">
                             URL Larga<span class="asteriskField">*</span>
                         </label>
-                        <div class="controls col-md-12">
+                        <div class="controls col-md-10">
                             <div class="input-group">
                                 <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-link">s</span>
+                                    <span class="glyphicon glyphicon-link"></span>
                                 </span>
                                 <input class="urlinput form-control" id="url" maxlength="200" name="url" type="url" />
                             </div>
@@ -68,7 +66,7 @@
         </div>
     </div>
 </div>
-<div class="col"></div>
+<div class="col-md-2"></div>
 {% endblock %}
 
 {% block modals %}
