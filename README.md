@@ -1,2 +1,2 @@
-64k
-===
+# 64k
+Simple acortador de URLs.
