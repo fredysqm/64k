@@ -8,8 +8,8 @@ urlpatterns = [
     path( 'api/', include('api.urls') ),
     path( '', include('app.urls') ),
 ]
-handler404 = error404.as_view()
-handler500 = error500.as_view()
+#handler404 = error404.as_view()
+#handler500 = error500.as_view()
 
 if settings.DEBUG:
     from django.conf.urls import url
